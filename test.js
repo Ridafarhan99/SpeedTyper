@@ -4,6 +4,7 @@ let x=20;
 var string;
 let score = 0;
 let highscore = 0;
+let lives=3;
 
 console.log("Hello Universe! I'm Rida. this text is for testing.");
 
@@ -13,7 +14,7 @@ window.onload = function(){
 	canvasContext = canvas.getContext('2d');
 
 	let fps=40;
-	setInterval(function(){
+	let a = setInterval(function(){
 		if(x==20){
 			string = str(no);
 		}
@@ -24,7 +25,15 @@ window.onload = function(){
 			document.getElementById("val").value = ''; 		//if inputed value get match then blank the input box.
 			no++;
 		}
+		if(x>820){
+			lives-=1;
+		}
+		while(lives<=0){
+			clearInterval(a);
+			return;
+		}
 	},1000/fps)
+
 }
 
 function drawEverything(x,string){
@@ -34,6 +43,7 @@ function drawEverything(x,string){
 	drawString(x,string);
 	scoreBoard(score);
 	highScoreBoard(highscore);
+	myLives(lives);
 }
 
 function moveEverything(){
@@ -85,16 +95,31 @@ function highScoreVal(){
 function scoreBoard(score){
 	scoreVal();
 	canvasContext.fillStyle = "green";
-	canvasContext.fillText("Your Score: ",50,50);
+	canvasContext.fillText("Your Score: ",50,60);
 	canvasContext.fillStyle = "red";
 	canvasContext.font = "40px Celtic";
-	canvasContext.fillText(score, 250, 50);
+	canvasContext.fillText(score, 230, 60);
+	canvasContext.fillStyle = "yellow";
+	canvasContext.fillText("||",250,60);
 }
+
+function myLives(lives){
+	canvasContext.fillStyle = "green";
+	canvasContext.fillText("Your Lives left: ",270,60);
+	canvasContext.fillStyle = "red";
+	canvasContext.font = "40px Celtic";
+	canvasContext.fillText(lives, 520, 60);
+	canvasContext.fillStyle = "yellow";
+	canvasContext.fillText("||",540,60);
+}
+
 function highScoreBoard(highscore){
 	highScoreVal();
 	canvasContext.fillStyle = "green";
-	canvasContext.fillText("Your High Score: ",550,60);
+	canvasContext.fillText("Your High Score: ",560,60);
 	canvasContext.fillStyle = "red";
 	canvasContext.font = "40px Celtic";
-	canvasContext.fillText(highscore, 850, 60);
+	canvasContext.fillText(highscore, 840, 60);
+	canvasContext.fillStyle = "yellow";
+	canvasContext.fillText("||",860,60);
 }
